@@ -29,10 +29,10 @@ export default function Login() {
         <Button variant="contained" type="submit" fullWidth sx={{ bgcolor: '#0A66C2', '&:hover': { bgcolor: '#004182' } }}>
           Iniciar sesión
         </Button>
-        <Link component="button" onClick={() => navigate('/reset-password')} underline="hover">
+        <Link component="button" onClick={() => navigate('/cambio-contraseña')} underline="hover">
           ¿Olvidaste tu contraseña?
         </Link>
-        <Link component="button" onClick={() => navigate('/register')} underline="hover">
+        <Link component="button" onClick={() => navigate('/registro')} underline="hover">
           ¿Nuevo en la plataforma? Únete ahora
         </Link>
       </Box>
