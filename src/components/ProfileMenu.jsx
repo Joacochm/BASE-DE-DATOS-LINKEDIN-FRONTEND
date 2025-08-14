@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Avatar,
   Box,
@@ -10,11 +11,14 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../store/slices/authLoginSlice";
 
 export default function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -23,6 +27,15 @@ export default function ProfileMenu() {
     navigate("/perfil");
     handleClose();
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
+    navigate("/login");
+  };
+
+  //Store de imagenes
+  const profileImage = useSelector((state) => state.profile.profileImage?.url);
 
   return (
     <>
@@ -40,7 +53,7 @@ export default function ProfileMenu() {
         onClick={handleClick}
       >
         <Avatar
-          src="/default-avatar.png"
+          src={profileImage || "/default-avatar.png"}
           sx={{
             width: 32,
             height: 32,
@@ -75,9 +88,12 @@ export default function ProfileMenu() {
             gap: 2,
           }}
         >
-          <Avatar src="/default-avatar.png" sx={{ width: 48, height: 48 }} />
+          <Avatar
+            src={profileImage || "/default-avatar.png"}
+            sx={{ width: 48, height: 48 }}
+          />
           <Typography variant="subtitle1" noWrap>
-            Fernando Suazo
+            {user.name}
           </Typography>
         </Box>
 
@@ -125,7 +141,7 @@ export default function ProfileMenu() {
         <MenuItem onClick={handleClose}>Publicaciones y actividad</MenuItem>
         <MenuItem onClick={handleClose}>Cuenta de anuncios de empleo</MenuItem>
         <Divider sx={{ my: 1 }} />
-        <MenuItem onClick={handleClose} sx={{ color: "error.main" }}>
+        <MenuItem onClick={handleLogout} sx={{ color: "error.main" }}>
           Cerrar sesión
         </MenuItem>
       </Menu>

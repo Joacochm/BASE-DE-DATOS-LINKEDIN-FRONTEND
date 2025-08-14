@@ -39,18 +39,36 @@ export default function NavBar() {
       elevation={1}
       sx={{ borderBottom: "1px solid #ddd" }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl" sx={{ px: { xs: 3, sm: 6 } }}>
         <Toolbar
           disableGutters
-          sx={{ justifyContent: "space-between", gap: 2 }}
+          sx={{ 
+            justifyContent: "space-between", 
+            gap: { xs: 0.5, sm: 2 },
+            minHeight: { xs: 56, sm: 64 },
+          }}
         >
           {/* Logo + Búsqueda */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-            <IconButton edge="start" sx={{ p: 0 }} component={NavLink} to="/">
+          <Box sx={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: { xs: 0.5, sm: 1.5 },
+            flex: { xs: "0 1 auto", sm: "0 0 auto" },
+            minWidth: 0,
+          }}>
+            <IconButton 
+              edge="start" 
+              sx={{ p: 0 }} 
+              component={NavLink} 
+              to="/"
+            >
               <Avatar
                 src="/Linkedin.jpg"
                 alt="logo"
-                sx={{ width: 34, height: 34 }}
+                sx={{ 
+                  width: { xs: 28, sm: 34 }, 
+                  height: { xs: 28, sm: 34 } 
+                }}
               />
             </IconButton>
 
@@ -59,19 +77,29 @@ export default function NavBar() {
                 display: "flex",
                 alignItems: "center",
                 bgcolor: "#eef3f8",
-                px: 1.5,
+                px: { xs: 1, sm: 1.5 },
                 py: 0.5,
                 borderRadius: 2,
-                width: { xs: 150, sm: 250 },
+                width: { xs: "120px", sm: "200px", md: "250px" },
+                maxWidth: "250px",
               }}
             >
-              <SearchIcon fontSize="small" sx={{ color: "#666" }} />
+              <SearchIcon 
+                fontSize="small" 
+                sx={{ 
+                  color: "#666", 
+                  fontSize: { xs: "1rem", sm: "1.25rem" } 
+                }} 
+              />
               <InputBase
                 placeholder="Buscar"
                 sx={{
-                  ml: 1,
-                  fontSize: "0.9rem",
+                  ml: 0.5,
+                  fontSize: { xs: "0.8rem", sm: "0.9rem" },
                   width: "100%",
+                  "& input::placeholder": {
+                    fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                  },
                 }}
               />
             </Box>
@@ -82,7 +110,10 @@ export default function NavBar() {
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: { xs: 2, sm: 5 },
+              gap: { xs: 0.5, sm: 2, md: 3, lg: 5 },
+              flex: "1 1 auto",
+              justifyContent: "flex-end",
+              minWidth: 0,
             }}
           >
             {menuItems.map((item, index) => (
@@ -100,15 +131,28 @@ export default function NavBar() {
                       color: isActive ? "primary.main" : "#555",
                       cursor: "pointer",
                       "&:hover": { color: "primary.main" },
+                      minWidth: { xs: "auto", sm: "60px" },
+                      px: { xs: 0.5, sm: 1 },
+                      py: 0.5,
                     }}
                   >
-                    {item.icon}
+                    <Box
+                      sx={{
+                        "& svg": {
+                          fontSize: { xs: "1.2rem", sm: "1.5rem" },
+                        },
+                      }}
+                    >
+                      {item.icon}
+                    </Box>
                     <Typography
                       variant="caption"
                       sx={{
                         display: { xs: "none", sm: "block" },
                         mt: 0.5,
-                        fontSize: "0.75rem",
+                        fontSize: { xs: "0.6rem", sm: "0.75rem" },
+                        whiteSpace: "nowrap",
+                        textAlign: "center",
                       }}
                     >
                       {item.label}
@@ -119,8 +163,14 @@ export default function NavBar() {
             ))}
 
             {/* Perfil */}
-            <ProfileMenu />
-            
+            <Box
+              sx={{
+                ml: { xs: 0.5, sm: 1 },
+                flexShrink: 0,
+              }}
+            >
+              <ProfileMenu />
+            </Box>
           </Box>
         </Toolbar>
       </Container>
