@@ -37,7 +37,7 @@ export default function MainLayout() {
       >
         <Container maxWidth="lg">
           <Typography variant="body2" color="text.secondary" align="center">
-            © {new Date().getFullYear()} LinkedIn — Base de Datos II
+            © {new Date().getFullYear()} LinkedIn
           </Typography>
         </Container>
       </Box>
